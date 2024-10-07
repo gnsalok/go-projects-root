@@ -48,7 +48,7 @@ test:
 # Run the application
 run:
 	@echo "Starting the application..."
-	go run main.go
+	go run cmd/main.go
 
 # Clean generated files
 clean:

@@ -1,4 +1,4 @@
-Creating a REST API in Golang using the Gin framework that interacts with a local Couchbase instance involves several key steps. This comprehensive guide will walk you through:
+REST API in Golang using the Gin framework that interacts with a local Couchbase instance involves several key steps. This comprehensive guide will walk you through:
 
 1. **Setting up the Go project with Gin and Couchbase integration**
 2. **Implementing the REST API**
@@ -616,6 +616,9 @@ r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 ```
 
 After running the server, navigate to `http://localhost:8080/swagger/index.html` to view the Swagger UI.
+
+
+> Note : If you are getting error try `export PATH=$PATH:$HOME/go/bin` and run swag command.
 
 ---
 
