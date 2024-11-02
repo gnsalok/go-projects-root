@@ -1,0 +1,4 @@
+grpcio>=1.53.0
+grpcio-tools>=1.53.0
+protobuf>=4.23.3
+grpcio-reflection>=1.53.0  # Optional, for server reflection
