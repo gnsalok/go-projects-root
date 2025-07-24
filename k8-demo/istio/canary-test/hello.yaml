@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: hello-v1, labels: {app: hello, version: v1}}
+spec:
+  replicas: 1
+  selector: {matchLabels: {app: hello, version: v1}}
+  template:
+    metadata: {labels: {app: hello, version: v1}}
+    spec:
+      containers:
+      - name: http-echo
+        image: hashicorp/http-echo:0.2.3
+        args: ["-text=Hello from v1"]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: hello-v2, labels: {app: hello, version: v2}}
+spec:
+  replicas: 1
+  selector: {matchLabels: {app: hello, version: v2}}
+  template:
+    metadata: {labels: {app: hello, version: v2}}
+    spec:
+      containers:
+      - name: http-echo
+        image: hashicorp/http-echo:0.2.3
+        args: ["-text=Hello from v2"]
+---
+apiVersion: v1
+kind: Service
+metadata: {name: hello}
+spec:
+  selector: {app: hello}
+  ports: [{port: 80, name: http}]

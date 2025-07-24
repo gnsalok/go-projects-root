@@ -1,0 +1,23 @@
+# hello-gateway.yaml
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata: {name: hello-gw}
+spec:
+  selector: {istio: ingressgateway}
+  servers:
+  - port: {number: 80, name: http, protocol: HTTP}
+    hosts: ["*"]
+
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata: {name: hello-edge}
+spec:
+  hosts: ["*"]
+  gateways: [hello-gw]
+  http:
+  - match: [{uri: {prefix: "/hello"}}]
+    rewrite: {uri: "/"}
+    route:
+    - destination: {host: hello.mesh-demo.svc.cluster.local, subset: v1}
+      weight: 100
