@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      containers:
+      - name: go-sample-app
+        image: go-sample-app:{{ .Values.image.tag | default "v1" }}
+        ports:
+        - containerPort: 8080
+        env:
+        - name: APP_VERSION
+          value: "{{ .Values.image.tag | default "v1" }}"

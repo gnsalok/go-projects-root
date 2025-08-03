@@ -1,0 +1,32 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: go-app-gateway
+  namespace: go-app
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "myexample.com"
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: go-app-vs
+  namespace: go-app
+spec:
+  hosts:
+  - "myexample.com"
+  gateways:
+  - go-app-gateway
+  http:
+  - route:
+    - destination:
+        host: go1.go-app.svc.cluster.local
+        port:
+          number: 8080
